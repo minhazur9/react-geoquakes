@@ -23,3 +23,7 @@ body {
   padding-right: 2em;
   background-color: pink;
 }
+
+.earthquakes {
+  list-style: none;
+}
