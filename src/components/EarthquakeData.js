@@ -2,7 +2,7 @@ import React from 'react';
 
 function EarthquakeData(props) {
     const earthquakeList = props.earthquakeData.map((data) => (
-        <li className="earthquakes">{data.properties.title}</li>
+        <li key={data.id} className="earthquakes">{data.properties.title}</li>
     ))
 
     return (

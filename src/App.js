@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import EarthquakeData from './components/EarthquakeData';
+import  GoogleApiWrapper from './components/MapData';
 
 import './App.css';
 
@@ -24,7 +25,7 @@ class App extends React.Component {
     return (
     <div className="app">
       <div className="mapContainer">
-        ...put Map Component here...
+       <GoogleApiWrapper/>
       </div>
       <div className="quakeContainer">
         <h1>Earthquakes from the past week:</h1>
