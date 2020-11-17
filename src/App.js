@@ -19,13 +19,12 @@ class App extends React.Component {
     axios.get('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson')
     .then((response) => this.setState({earthquakeData: response.data.features}))
     .catch((error) => console.log(error))
-
   }
   render() {
     return (
     <div className="app">
       <div className="mapContainer">
-       <GoogleApiWrapper/>
+       <GoogleApiWrapper earthquakeData={this.state.earthquakeData}/>
       </div>
       <div className="quakeContainer">
         <h1>Earthquakes from the past week:</h1>

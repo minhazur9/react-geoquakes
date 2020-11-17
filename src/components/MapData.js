@@ -1,5 +1,6 @@
 import React from 'react';
 import { Map, GoogleApiWrapper,InfoWindow, Marker } from 'google-maps-react';
+import EarthquakePNG from '../images/earthquake.png';
 
 const mapStyles = {
     width: '37%',
@@ -9,12 +10,14 @@ const mapStyles = {
     
   };
 
-export class MapContainer extends React.Component {
+export class MapContainer extends React.Component {  
     state = {
         showingInfoWindow: false,  
         activeMarker: {},          
         selectedPlace: {}          
       };
+
+      
 
     onMarkerClick = (props, marker, e) =>
       this.setState({
@@ -32,24 +35,33 @@ export class MapContainer extends React.Component {
       }
     };
 
-    render() {
+    render() { 
+      console.log(this.earthquakeList)
       return (
-        <>
         <Map
           google={this.props.google}
-          zoom={14}
+          zoom={4}
           style={mapStyles}
           initialCenter={
             {
-              lat: -1.2884,
-              lng: 36.8233
+              lat: 39.362129,
+              lng: -74.415108
             }
           }
-        />
-        <Marker
+        >
+        {this.props.earthquakeData.map((data) => {
+          return (
+          <Marker 
+          key={data.time}
+          position={{lng: data.geometry.coordinates[0], lat: data.geometry.coordinates[1]}}
           onClick={this.onMarkerClick}
-          name={'Kenyatta International Convention Centre'}
-        />
+          icon={{url:EarthquakePNG, scaledSize:  new this.props.google.maps.Size(25,25)}}
+          
+          name={data.properties.title.replace(/.*?of\s|.*?-\s/,"")}
+          />
+          )
+        })}
+        
         <InfoWindow
           marker={this.state.activeMarker}
           visible={this.state.showingInfoWindow}
@@ -59,8 +71,9 @@ export class MapContainer extends React.Component {
             <h4>{this.state.selectedPlace.name}</h4>
           </div>
         </InfoWindow>
-        </>
+        </Map>
       );
+      
     }
   }
 
